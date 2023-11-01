@@ -6,9 +6,9 @@ public class Name {
 	private String last;
 	
 	//Methods
-	Name(){}
+	public Name(){}
 	
-	Name(Name n) {
+	public Name(Name n) {
 		this.first = n.first;
 		this.last = n.last;
 	}
@@ -31,5 +31,30 @@ public class Name {
 	
 	public String getLast() {
 		return last;
+	}
+	
+	//Relational
+	public boolean equals(Name n) {
+		return toString().equals(n.toString());
+	}
+	
+	public boolean notEquals(Name n) {
+		return !this.equals(n); // !=
+	}
+			
+	public boolean isLessThan(Name n) {
+		return toString().compareTo(n.toString()) < 0; // <
+	}
+			
+	public boolean isLessThanOrEqual(Name n) {
+		return isLessThan(n) || equals(n); // <=
+	}
+			
+	public boolean isGreaterThan(Name n) {
+		return !isLessThanOrEqual(n); // >
+	}
+			
+	public boolean isGreaterThanOrEqual(Name n) {
+		return !isLessThan(n); // >=
 	}
 }
