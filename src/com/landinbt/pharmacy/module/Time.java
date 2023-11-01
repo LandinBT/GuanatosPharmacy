@@ -1,8 +1,8 @@
 package com.landinbt.pharmacy.module;
 
-import java.io.Serializable;
+import java.time.LocalTime;
 
-public class Time implements Serializable {
+public class Time {
 	//Attributes
 	private byte hour;
 	private byte minute;
@@ -11,24 +11,44 @@ public class Time implements Serializable {
 		return hour*100 + minute; //1007
 	}
 	
-	//Methods
-	Time(){}
+	private boolean isValid(byte h, byte m) {
+		if(h < 0 || h > 23) {
+			return false;
+		}
+		
+		if(m < 0 || m > 59) {
+			return false;
+		}
+		
+		return true;
+	}
 	
-	Time(Time t) {
+	//Methods
+	public Time() {
+		LocalTime now = LocalTime.now();
+		this.hour = (byte) now.getHour();
+		this.minute = (byte) now.getMinute();
+	}
+	
+	public Time(Time t) {
 		this.hour = t.hour;
 		this.minute = t.minute;
 	}
 	
 	public void setHour(byte h) {
-		this.hour = h;
+		if(isValid(h, this.minute)) {
+			this.hour = h;
+		}
 	}
 	
 	public void setMinute(byte m) {
-		this.minute = m;
+		if(isValid(this.hour, m)) {
+			this.minute = m;
+		}
 	}
 	
 	public String toString() {
-		return hour+":"+minute;
+		return String.format("%02d:%02d", hour, minute);
 	}
 	
 	public byte getHour() {
